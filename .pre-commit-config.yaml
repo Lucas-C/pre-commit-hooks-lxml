@@ -1,0 +1,37 @@
+-   repo: git://github.com/Lucas-C/pre-commit-hooks
+    sha: 0f5055d31f39ea3ac1f5335a0cca320200cd0c51
+    hooks:
+    -   id: remove-crlf
+    -   id: remove-tabs
+-   repo: git://github.com/pre-commit/pre-commit-hooks
+    sha: 3fa02652357ff0dbb42b5bc78c673b7bc105fcf3
+    hooks:
+    -   id: trailing-whitespace
+        args:
+        - --no-markdown-linebreak-ext
+    -   id: check-yaml
+-   repo: git://github.com/pre-commit/mirrors-pylint
+    sha: 4de6c8dfadef1a271a814561ce05b8bc1c446d22
+    hooks:
+    -   id: pylint
+        args:
+        - --rcfile=.pylintrc
+        - --reports=no
+-   repo: local
+    hooks:
+    -   id: angular-forbid-apply
+        name: In AngularJS, use $digest over $apply
+        language: pcre
+        entry: \$apply
+        files: \.js$
+    -   id: angular-forbid-ngrepeat-without-trackby
+        name: In AngularJS, ALWAYS use 'track by' with ng-repeat
+        language: pcre
+        entry: ng-repeat(?!.*track by)
+        files: \.html$
+    -   id: angular-forbid-ngmodel-with-no-dot
+        name: In AngularJS, "Whenever you have ng-model there's gotta be a dot in
+            there somewhere"
+        language: pcre
+        entry: ng-model="?[^.]+[" ]
+        files: \.html$
