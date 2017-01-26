@@ -3,9 +3,9 @@ from setuptools import setup
 
 setup(
     name='pre-commit-hooks-lxml',
-    description='Some HTML validating hooks using lxml for pre-commit',
+    description='Some CSS/HTML validating pre-commit hooks using lxml',
     url='https://github.com/Lucas-C/pre-commit-hooks-lxml',
-    version='1.0.0',
+    version='1.0.1',
 
     author='Lucas Cimon',
     author_email='lucas.cimon@gmail.com',
@@ -26,9 +26,11 @@ setup(
     packages=find_packages('.'),
     install_requires=[
         'lxml',
+        'tinycss2',
     ],
     entry_points={
         'console_scripts': [
+            'detect_missing_css_classes = pre_commit_hooks.detect_missing_css_classes:main',
             'forbid_html_img_without_alt_text = pre_commit_hooks.forbid_html_img_without_alt_text:main',
             'forbid_non_std_html_attributes = pre_commit_hooks.forbid_non_std_html_attributes:main',
         ],

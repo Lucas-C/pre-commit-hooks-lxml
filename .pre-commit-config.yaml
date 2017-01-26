@@ -17,3 +17,10 @@
         args:
         - --rcfile=.pylintrc
         - --reports=no
+-   repo: local
+    hooks:
+    -   id: py.test
+        name: py.test
+        language: system
+        entry: sh -c py.test
+        files: ''
