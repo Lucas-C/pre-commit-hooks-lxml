@@ -13,3 +13,9 @@
     - --extra-known-attributes
     - content,http-equiv,placeholder,role,style
     files: .*\.(html|hbs)$
+-   id: detect-missing-css-classes
+    name: Missing CSS classes checker
+    description: Detect unused or missing CSS classes definitions, and abort if any of the later ones is found
+    entry: detect_missing_css_classes
+    language: python
+    files: .*\.(css|hbs|html)$

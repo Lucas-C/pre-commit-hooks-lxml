@@ -5,7 +5,7 @@ setup(
     name='pre-commit-hooks-lxml',
     description='Some CSS/HTML validating pre-commit hooks using lxml',
     url='https://github.com/Lucas-C/pre-commit-hooks-lxml',
-    version='1.0.1',
+    version='1.0.2',
 
     author='Lucas Cimon',
     author_email='lucas.cimon@gmail.com',

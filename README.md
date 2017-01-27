@@ -7,7 +7,7 @@ Useful [pre-commit](http://pre-commit.com) hooks to check your CSS / HTML pages 
 
 ```
 -   repo: https://github.com/Lucas-C/pre-commit-hooks-lxml
-    sha: v1.0.1
+    sha: v1.0.2
     hooks:
     -   id: forbid-html-img-without-alt-text
     -   id: forbid-non-std-html-attributes
