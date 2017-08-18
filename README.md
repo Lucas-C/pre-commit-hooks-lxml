@@ -31,21 +31,3 @@ With [MSYS2](//msys2.github.io) :
     pacman -S git python3 gcc python3-devel libxml2-devel libxslt-devel tar
 
 The package names must be very similar under Linux.
-
-
-## Other useful local hooks
-
-```
--   repo: local
-    hooks:
-    -   id: css-forbid-px
-        name: In CSS files, use rem or % over px
-        language: pcre
-        entry: px
-        files: \.css$
-    -   id: ot-sanitize-fonts
-        name: Calling ot-sanitise on otf/ttf/woff/woff2 font files
-        language: system
-        entry: sh -c 'type ot-sanitise >/dev/null && for font in "$@"; do echo "$font"; ot-sanitise "$font"; done || echo "WARNING Command ot-sanitise not found - skipping check"'
-        files: \.(otf|ttf|woff|woff2)$
-```
