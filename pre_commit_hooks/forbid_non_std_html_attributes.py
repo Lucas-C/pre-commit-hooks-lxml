@@ -25,7 +25,7 @@ def iterate_non_std_attributes(html_filenames, extra_known_attributes):
                     if not any([attribute_name in known_html_attrs,
                                 attribute_name.startswith('data-'),
                                 attribute_name.startswith('aria-')]):
-                        yield html_filename, attribute_name
+                        yield html_filename, attribute_name  # sadly elem.sourceline is None :(
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))

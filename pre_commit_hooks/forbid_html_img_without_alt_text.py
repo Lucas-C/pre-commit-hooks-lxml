@@ -16,12 +16,9 @@ def main(argv=None):
 def iterate_img_without_alt(html_filenames):
     for html_filename in html_filenames:
         with open(html_filename, 'rb') as html_file:
-            for _, elem in iterparse(html_file, html=True, remove_comments=True):
-                if elem.tag != 'img':
-                    continue
-                attributes = elem.attrib.keys()
-                if 'alt' not in attributes and 'data-ng-attr-alt' not in attributes:
-                    yield html_filename
+            for _, elem in iterparse(html_file, html=True, tag='img'):
+                if 'alt' not in elem.attrib and 'data-ng-attr-alt' not in elem.attrib:
+                    yield html_filename  # sadly elem.sourceline is None :(
 
 if __name__ == '__main__':
     sys.exit(main(sys.argv[1:]))
