@@ -19,3 +19,19 @@
     entry: detect_missing_css_classes
     language: python
     files: .*\.(css|hbs|html)$
+-   id: html-tags-blacklist
+    name: Forbid some HTML tags
+    entry: html_tags_blacklist
+    language: python
+    args:
+    - --forbidden-tags
+    - basefont,blink,center,font,marquee,s,strike,tt,u
+    files: \.(html|hbs)$
+-   id: html-attributes-blacklist
+    name: Forbid some HTML attributes
+    entry: html_attributes_blacklist
+    language: python
+    args:
+    - --forbidden-attributes
+    - align,alink,background,basefont,bgcolor,border,color,link,text,vlink
+    files: \.(html|hbs)$

@@ -5,7 +5,7 @@ setup(
     name='pre-commit-hooks-lxml',
     description='Some CSS/HTML validating pre-commit hooks using lxml',
     url='https://github.com/Lucas-C/pre-commit-hooks-lxml',
-    version='1.0.2',
+    version='1.1.0',
 
     author='Lucas Cimon',
     author_email='lucas.cimon@gmail.com',
@@ -33,6 +33,8 @@ setup(
             'detect_missing_css_classes = pre_commit_hooks.detect_missing_css_classes:main',
             'forbid_html_img_without_alt_text = pre_commit_hooks.forbid_html_img_without_alt_text:main',
             'forbid_non_std_html_attributes = pre_commit_hooks.forbid_non_std_html_attributes:main',
+            'html_tags_blacklist = pre_commit_hooks.html_tags_blacklist:main',
+            'html_attributes_blacklist = pre_commit_hooks.html_attributes_blacklist:main',
         ],
     },
 )

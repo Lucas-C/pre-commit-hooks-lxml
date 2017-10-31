@@ -7,7 +7,7 @@ Useful [pre-commit](http://pre-commit.com) hooks to check your CSS / HTML pages 
 
 ```
 -   repo: https://github.com/Lucas-C/pre-commit-hooks-lxml
-    sha: v1.0.2
+    sha: v1.1.0
     hooks:
     -   id: forbid-html-img-without-alt-text
     -   id: forbid-non-std-html-attributes
@@ -17,10 +17,19 @@ Useful [pre-commit](http://pre-commit.com) hooks to check your CSS / HTML pages 
         - .
         - --html-files-dir
         - .
+    -   id: html-tags-blacklist
+    -   id: html-attributes-blacklist
 ```
 
+### [FR] Accessibilité RGAA
 
-## Dependencies
+Les hooks `html-tags-blacklist` & `html-attributes-blacklist` sont configurés par défaut pour interdire les élements et attributs nuisant à l'accessibilité,
+selon les recommendations d'[Access42](https://access42.net).
+
+cf. [issue #2](https://github.com/Lucas-C/pre-commit-hooks-lxml/issues/2)
+
+
+## Dependencies needed to use lxml
 
 Under [Cygwin](//www.cygwin.com), with [apt-cyg](//github.com/transcode-open/apt-cyg):
 
