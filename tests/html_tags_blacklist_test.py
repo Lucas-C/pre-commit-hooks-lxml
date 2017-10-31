@@ -1,3 +1,4 @@
+# coding: utf8
 # pylint:disable=invalid-name
 from __future__ import absolute_import
 from __future__ import unicode_literals
@@ -20,7 +21,7 @@ def test_detect_forbidden(tmpdir):
   <body>
     <blink>ლ(ಠ_ಠლ)</blink>
   </body>
-</html>''')
+</html>'''.encode('utf8'), mode='wb')
     assert html_tags_blacklist([
         '--forbidden-tags', DEFAULT_FORBIDDEN_TAGS,
         str(html_path)
@@ -39,7 +40,7 @@ def test_pass_valid(tmpdir):
   <body>
     <h1>ლ(ಠ_ಠლ)</h1>
   </body>
-</html>''')
+</html>'''.encode('utf8'), mode='wb')
     assert html_tags_blacklist([
         '--forbidden-tags', DEFAULT_FORBIDDEN_TAGS,
         str(html_path)
