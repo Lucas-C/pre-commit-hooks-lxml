@@ -1,4 +1,5 @@
 [![](https://travis-ci.org/Lucas-C/pre-commit-hooks-lxml.svg?branch=master)](https://travis-ci.org/Lucas-C/pre-commit-hooks-lxml)
+[![Known Vulnerabilities](https://snyk.io/test/github/lucas-c/pre-commit-hooks-lxml/badge.svg)](https://snyk.io/test/github/lucas-c/pre-commit-hooks-lxml)
 
 Useful [pre-commit](http://pre-commit.com) hooks to check your CSS / HTML pages / templates.
 
