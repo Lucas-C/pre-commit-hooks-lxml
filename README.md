@@ -1,4 +1,4 @@
-[![](https://travis-ci.org/Lucas-C/pre-commit-hooks-lxml.svg?branch=master)](https://travis-ci.org/Lucas-C/pre-commit-hooks-lxml)
+[![build status](https://github.com/Lucas-C/pre-commit-hooks-lxml/workflows/CI/badge.svg)](https://github.com/Lucas-C/pre-commit-hooks-lxml/actions?query=branch%3Amaster)
 [![Known Vulnerabilities](https://snyk.io/test/github/lucas-c/pre-commit-hooks-lxml/badge.svg)](https://snyk.io/test/github/lucas-c/pre-commit-hooks-lxml)
 
 Useful [pre-commit](http://pre-commit.com) hooks to check your CSS / HTML pages / templates.
@@ -15,9 +15,11 @@ Useful [pre-commit](http://pre-commit.com) hooks to check your CSS / HTML pages 
     -   id: detect-missing-css-classes
         args:
         - --css-files-dir
-        - .
+        - css/
+        - --css-lib-files-dir
+        - vendors/
         - --html-files-dir
-        - .
+        - html/
     -   id: html-tags-blacklist
     -   id: html-attributes-blacklist
 ```
