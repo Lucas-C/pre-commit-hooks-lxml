@@ -8,7 +8,7 @@ Useful [pre-commit](http://pre-commit.com) hooks to check your CSS / HTML pages 
 
 ```
 -   repo: https://github.com/Lucas-C/pre-commit-hooks-lxml
-    sha: v1.1.0
+    rev: v1.1.1
     hooks:
     -   id: forbid-html-img-without-alt-text
     -   id: forbid-non-std-html-attributes
@@ -43,3 +43,18 @@ With [MSYS2](//msys2.github.io) :
     pacman -S git python3 gcc python3-devel libxml2-devel libxslt-devel tar
 
 The package names must be very similar under Linux.
+
+
+## Development
+
+### Setup
+
+    pip install -e .
+    pip install -U -r dev-requirements.txt
+    pre-commit install
+
+### Releasing
+
+1. Bump version in `setup.py` and in all occurences of `rev:` in this `README.md` file.
+2. `git commit -nam "Release $version" && git push && git tag $version && git push --tags`
+3. Create a GitHub release
