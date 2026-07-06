@@ -7,32 +7,45 @@ def main(argv=None):
     parser = argparse.ArgumentParser()
     parser.add_argument('filenames', nargs='*', help='filenames to check')
     parser.add_argument('--css-files-dir', required=True,
-                        help='Root directory for CSS files to check')
+                        help='Directories containing CSS files to check')
+    parser.add_argument('--css-lib-files-dir', default='',
+                        help='Directories containing CSS files of librairies: unused classes from those files will not be reported')
     parser.add_argument('--html-files-dir', required=True,
-                        help='Root directory for HTML files to check')
+                        help='Directories containing HTML files to check')
     parser.add_argument('--ignored-missing-class-defs-pattern',
                         help='Regular expression matching CSS class names')
     parser.add_argument('--ignored-unused-class-defs-pattern',
                         help='Regular expression matching CSS class names')
     args = parser.parse_args(argv)
 
-    html_files = list(scandir(args.html_files_dir, ('.hbs', '.html')))
-    print('{} HTML files found in directory {}'.format(len(html_files), args.html_files_dir))
-    css_files = list(scandir(args.css_files_dir, ('.css')))
-    print('{} CSS files found in directory {}'.format(len(css_files), args.css_files_dir))
+    html_files = []
+    for directory in args.html_files_dir.split(','):
+        html_files.extend(scandir(directory, ('.hbs', '.html')))
+    searched = 'directories {}'.format(args.html_files_dir) if ',' in args.html_files_dir else 'directory {}'.format(args.html_files_dir)
+    print('{} HTML files found in {}'.format(len(html_files), searched))
+    css_files = []
+    for directory in args.css_files_dir.split(','):
+        css_files.extend(scandir(directory, ('.css',)))
+    searched = 'directories {}'.format(args.css_files_dir) if ',' in args.css_files_dir else 'directory {}'.format(args.css_files_dir)
+    print('{} CSS files found in {}'.format(len(css_files), searched))
+    css_lib_files = []
+    for directory in args.css_lib_files_dir.split(','):
+        css_lib_files.extend(scandir(directory, ('.css',)))
+    searched = 'directories {}'.format(args.css_lib_files_dir) if ',' in args.css_lib_files_dir else 'directory {}'.format(args.css_lib_files_dir)
+    print('{} library CSS files found in {}'.format(len(css_lib_files), searched))
 
-    css_classes_used = sum([list(extract_css_classes_usages(html_file)) for html_file in html_files], [])
+    css_classes_used = set(sum([list(extract_css_classes_usages(html_file)) for html_file in html_files], []))
     print('Found {} CSS classes usages in HTML files'.format(len(css_classes_used)))
-    css_classes_defined = sum([list(extract_css_classes_definitions(css_file)) for css_file in css_files], [])
+    css_classes_defined = set(sum([list(extract_css_classes_definitions(css_file)) for css_file in css_files], []))
     print('Found {} CSS classes definitions in CSS files'.format(len(css_classes_defined)))
+    css_lib_classes_defined = set(sum([list(extract_css_classes_definitions(css_lib_file)) for css_lib_file in css_lib_files], []))
+    print('Found {} CSS classes definitions in library CSS files'.format(len(css_lib_classes_defined)))
 
-    css_classes_defined = set(css_classes_defined)
-    css_classes_used = set(css_classes_used)
     unused_css_classes = css_classes_defined - css_classes_used
     if args.ignored_unused_class_defs_pattern:
         unused_css_classes = sorted(css_class for css_class in unused_css_classes
                                     if not re.search(args.ignored_unused_class_defs_pattern, css_class))
-    missing_css_classes = css_classes_used - css_classes_defined
+    missing_css_classes = css_classes_used - css_classes_defined - css_lib_classes_defined
     if args.ignored_missing_class_defs_pattern:
         missing_css_classes = sorted(css_class for css_class in missing_css_classes
                                      if not re.search(args.ignored_missing_class_defs_pattern, css_class))
@@ -47,8 +60,9 @@ def main(argv=None):
 
 def scandir(dirname, file_extensions):
     for dirpath, _, fnames in os.walk(dirname):
-        for file_path in [os.path.join(dirpath, fname) for fname in fnames if any(fname.endswith(ext) for ext in file_extensions)]:
-            yield file_path
+        for fname in fnames:
+            if any(fname.endswith(ext) for ext in file_extensions):
+                yield os.path.join(dirpath, fname)
 
 def extract_css_classes_definitions(css_file):
     with open(css_file, 'rb') as open_file:
